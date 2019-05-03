@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, AsyncStorage } from "react-native";
 import Button from "@ant-design/react-native/lib/button";
 import InputItem from "@ant-design/react-native/lib/input-item";
 import TextareaItem from "@ant-design/react-native/lib/textarea-item";
@@ -15,6 +15,15 @@ export default class App extends Component {
       message: ""
     };
   }
+
+  saveData = async () => {
+    const formData = this.state;
+    try {
+      await AsyncStorage.setItem("form data", JSON.stringify(formData));
+    } catch (error) {
+      console.log("error is saving data", error.message);
+    }
+  };
 
   render() {
     const { firstName, lastName, email, message } = this.state;
@@ -50,7 +59,9 @@ export default class App extends Component {
             />
           </List>
         </View>
-        <Button style={styles.button}>Submit</Button>
+        <Button style={styles.button} onPress={this.saveData}>
+          Submit
+        </Button>
       </View>
     );
   }
