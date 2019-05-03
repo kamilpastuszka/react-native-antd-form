@@ -5,20 +5,48 @@ import InputItem from "@ant-design/react-native/lib/input-item";
 import TextareaItem from "@ant-design/react-native/lib/textarea-item";
 import List from "@ant-design/react-native/lib/list";
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      message: ""
+    };
+  }
+
   render() {
+    const { firstName, lastName, email, message } = this.state;
+    console.log(this.state);
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
           <List style={styles.listStyle}>
-            <InputItem placeholder={"First Name"} />
-            <InputItem placeholder={"Second Name"} />
-            <InputItem placeholder={"Email"} />
+            <InputItem
+              placeholder={"First Name"}
+              name="firstName"
+              value={firstName}
+              onChangeText={text => this.setState({ firstName: text })}
+            />
+            <InputItem
+              placeholder={"Last Name"}
+              name="lastName"
+              value={lastName}
+              onChangeText={text => this.setState({ lastName: text })}
+            />
+            <InputItem
+              placeholder={"Email"}
+              name="email"
+              value={email}
+              onChangeText={text => this.setState({ email: text })}
+            />
             <TextareaItem
               style={styles.textArea}
               rows={6}
               placeholder={"Message"}
+              value={message}
+              onChangeText={text => this.setState({ message: text })}
             />
           </List>
         </View>
